@@ -13,8 +13,6 @@ passport.use(
       callbackURL: "/oauth/callback",
     },
     (accessToken, refreshToken, profile, done) => {
-      //user data can be saved to db from here
-      console.log(profile._json);
       return done(null, profile);
     }
   )

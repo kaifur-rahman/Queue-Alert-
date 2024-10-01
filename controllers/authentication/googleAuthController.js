@@ -2,12 +2,12 @@ import passport from "passport";
 import {
   createAccessToken,
   createRefreshToken,
-} from "../utilities/createToken.js";
+} from "../../utilities/createToken.js";
 import {
   saveNewUserLogin,
   updateExistingUserLogin,
-} from "../utilities/dbHelpers.js";
-import userModel from "../models/userModel.js";
+} from "../../utilities/dbHelpers.js";
+import userModel from "../../models/userModel.js";
 
 //controllers
 
@@ -22,7 +22,7 @@ export const googleAuthCallback = passport.authenticate("google", {
   session: false,
 });
 
-//callback success
+//google auth callback success
 export const googleAuthSuccess = async (req, res) => {
   const loggedInUser = req.user._json;
   const accessToken = createAccessToken();
@@ -41,12 +41,19 @@ export const googleAuthSuccess = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "strict",
-      maxAge: 15 * 60 * 1000,
+      maxAge: 5 * 60 * 1000,
     });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: true,
       sameSite: "strict",
+      maxAge: 60 * 60 * 1000,
+    });
+    //setting user id in cookie
+    res.cookie("userDetails", loggedInUser.sub, {
+      httpOnly: true,
+      sameSite: "strict",
+      path: "/",
       maxAge: 60 * 60 * 1000,
     });
     res.redirect("http://localhost:5173/dashboard");

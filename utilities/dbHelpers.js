@@ -23,3 +23,12 @@ export const updateExistingUserLogin = async (userDetails, refreshToken) => {
     { new: false }
   );
 };
+
+//delete refresh token from the user's details
+export const deleteRefreshToken = async (userId) => {
+  return userModel.findByIdAndUpdate(
+    { _id: userId },
+    { $unset: { refreshToken: "" } },
+    { new: false }
+  );
+};

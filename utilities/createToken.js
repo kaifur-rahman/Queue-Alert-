@@ -5,7 +5,7 @@ dotenv.config();
 
 export const createAccessToken = () => {
   const token = jsonwebtoken.sign({ data: {} }, process.env.jwtAccessSecret, {
-    expiresIn: "15m",
+    expiresIn: "5m",
   });
   return token;
 };

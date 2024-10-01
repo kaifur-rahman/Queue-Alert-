@@ -49,9 +49,9 @@ export const googleAuthSuccess = async (req, res) => {
       sameSite: "strict",
       maxAge: 60 * 60 * 1000,
     });
-    res.redirect("http://localhost:5000/success");
+    res.redirect("http://localhost:5173/dashboard");
   } catch (err) {
     console.log(`error during google authentication callback ${err}`);
-    res.redirect("http://localhost:5000/auth/err");
+    res.redirect("http://localhost:5173/auth/err");
   }
 };

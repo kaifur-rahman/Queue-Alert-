@@ -3,7 +3,7 @@ import {
   googleAuth,
   googleAuthCallback,
   googleAuthSuccess,
-} from "../controllers/authControllers.js";
+} from "../controllers/googleAuthController.js";
 
 const router = express.Router();
 

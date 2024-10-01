@@ -12,7 +12,12 @@ const PORT = process.env.port || 5000;
 const app = express();
 
 //middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    method: ["GET", "POST"],
+  })
+);
 app.use(express.json());
 app.use(passport.initialize());
 

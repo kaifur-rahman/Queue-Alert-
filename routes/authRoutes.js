@@ -8,6 +8,7 @@ import {
 import {
   verifyAuthToken,
   refreshAccessToken,
+  logout,
 } from "../controllers/authentication/tokenAuthController.js";
 
 const router = express.Router();
@@ -23,5 +24,8 @@ router.get("/auth/verify/access", verifyAuthToken);
 
 //to refresh access token
 router.get("/auth/refresh", refreshAccessToken);
+
+//to log out
+router.get("/auth/logout", logout);
 
 export default router;

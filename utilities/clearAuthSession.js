@@ -1,4 +1,6 @@
-const clearCookiesSignout = (res) => {
+import { deleteRefreshToken } from "./dbHelpers.js";
+
+const clearAllCookies = (res) => {
   res.clearCookie("accessToken", {
     httpOnly: true,
     secure: true,
@@ -19,4 +21,11 @@ const clearCookiesSignout = (res) => {
   console.log("All cookies cleared.");
 };
 
-export { clearCookiesSignout };
+const signoutCleanup = async (res, userDetails) => {
+  clearAllCookies(res);
+  if (userDetails) {
+    await deleteRefreshToken(userDetails);
+    console.log("Refresh token deleted from user's db.");
+  }
+};
+export { clearAllCookies, signoutCleanup };

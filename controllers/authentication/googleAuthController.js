@@ -41,7 +41,7 @@ export const googleAuthSuccess = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "strict",
-      maxAge: 5 * 60 * 1000,
+      maxAge: 60 * 60 * 1000,
     });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -50,12 +50,20 @@ export const googleAuthSuccess = async (req, res) => {
       maxAge: 60 * 60 * 1000,
     });
     //setting user id in cookie
-    res.cookie("userDetails", loggedInUser.sub, {
-      httpOnly: true,
-      sameSite: "strict",
-      path: "/",
-      maxAge: 60 * 60 * 1000,
-    });
+    res.cookie(
+      "userDetails",
+      JSON.stringify({
+        id: loggedInUser.sub,
+        name: loggedInUser.given_name,
+        avatar: loggedInUser.picture,
+      }),
+      {
+        httpOnly: false,
+        sameSite: "strict",
+        path: "/",
+        maxAge: 60 * 60 * 1000,
+      }
+    );
     res.redirect("http://localhost:5173/dashboard");
   } catch (err) {
     console.log(`error during google authentication callback ${err}`);
